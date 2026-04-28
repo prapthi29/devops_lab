@@ -12,18 +12,26 @@ pool:
 steps:
 - checkout: self
 
+# Debug (keep this once to verify structure)
+- script: dir
+  displayName: 'Check folder structure'
+
+# Run Maven from correct folder
 - script: mvn clean test
+  workingDirectory: amazon.app
   displayName: 'Build and Run Unit Tests'
 
+# Publish test results
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/target/surefire-reports/TEST-*.xml'
     testResultsFormat: 'JUnit'
   displayName: 'Publish Test Results'
 
+# Publish artifacts
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'target'
+    PathtoPublish: 'amazon.app/target'
     ArtifactName: 'drop'
     publishLocation: 'Container'
   displayName: 'Publish Build Artifacts'
