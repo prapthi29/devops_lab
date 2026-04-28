@@ -12,19 +12,23 @@ pool:
 steps:
 - checkout: self
 
-- script: mvn clean test
+# Build and package the project (creates JAR)
+- script: mvn clean package
   workingDirectory: amazon.app
-  displayName: 'Build and Run Unit Tests'
+  displayName: 'Build and Package Project'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFiles: '**/target/surefire-reports/TEST-*.xml'
-    testResultsFormat: 'JUnit'
-  displayName: 'Publish Test Results'
+# Simulate deployment
+- script: |
+    echo "Simulating deployment..."
+    mkdir deployed
+    copy target\*.jar deployed\
+    echo "Deployment successful!"
+  workingDirectory: amazon.app
+  displayName: 'Simulate Deployment'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'amazon.app/target'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: 'Publish Build Artifacts'
+# Run the application
+- script: |
+    echo "Running the JAR file..."
+    java -jar deployed\*.jar
+  workingDirectory: amazon.app
+  displayName: 'Run Application'
