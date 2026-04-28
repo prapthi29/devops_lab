@@ -12,12 +12,10 @@ pool:
 steps:
 - checkout: self
 
-# Build and package the project (creates JAR)
 - script: mvn clean package
   workingDirectory: amazon.app
   displayName: 'Build and Package Project'
 
-# Simulate deployment
 - script: |
     echo "Simulating deployment..."
     mkdir deployed
@@ -26,9 +24,12 @@ steps:
   workingDirectory: amazon.app
   displayName: 'Simulate Deployment'
 
-# Run the application
+- script: dir deployed
+  workingDirectory: amazon.app
+  displayName: 'Check deployed folder'
+
 - script: |
     echo "Running the JAR file..."
-    java -jar deployed\*.jar
+    for %%f in (deployed\*.jar) do java -jar %%f
   workingDirectory: amazon.app
   displayName: 'Run Application'
