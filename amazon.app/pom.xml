@@ -44,7 +44,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>HelloWorld</mainClass>
+              <mainClass>com.mvit.App</mainClass>
             </manifest>
           </archive>
         </configuration>
