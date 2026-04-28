@@ -30,13 +30,11 @@
   <build>
     <plugins>
 
-      <!-- Compiler plugin (keep this) -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
       </plugin>
 
-      <!-- 🔥 IMPORTANT: JAR plugin with main class -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
